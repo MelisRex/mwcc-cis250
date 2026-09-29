@@ -27,39 +27,34 @@ int vector_push(StringVector *vec, const char *str) {
         return 0;
     }
 
-    //Resize if array is full
     if (vec->size == vec->capacity) {
         size_t new_capacity = (vec->capacity == 0) ? 1 : vec->capacity * 2;
         char **new_data = realloc(vec->data, new_capacity * sizeof(char *));
         if (new_data == NULL) {
-            return 0; //Allocation failure
+            return 0;
         }
         vec->data = new_data;
         vec->capacity = new_capacity;
     }
 
-    //Calculate length manually without strlen()
     size_t len = 0;
     while (str[len] != '\0') {
         len++;
     }
 
-    //Allocate memory for the string (plus null terminator)
     char *str_copy = malloc(len + 1);
     if (str_copy == NULL) {
-        return 0; // Allocation failure
+        return 0;
     }
 
-    //Copy characters manually without strcpy()
     for (size_t i = 0; i <= len; i++) {
         str_copy[i] = str[i];
     }
 
-    //Store pointer and increment size
     vec->data[vec->size] = str_copy;
     vec->size++;
 
-    return 1; //Success
+    return 1;
 }
 
 //vector_get
@@ -76,12 +71,10 @@ void vector_free(StringVector *vec) {
         return;
     }
 
-    //Free each individual string
     for (size_t i = 0; i < vec->size; i++) {
         free(vec->data[i]);
     }
 
-    //Free internal array and struct
     free(vec->data);
     free(vec);
 }

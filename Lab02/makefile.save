@@ -1,0 +1,5 @@
+tempconvert: tempconvert.cc
+	gcc tempconvert.c -o tempconvert
+
+clean:
+	rm -f tempconvert
